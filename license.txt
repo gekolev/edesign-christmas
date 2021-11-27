@@ -1,0 +1,11 @@
+Model Information:
+* title:	Test_Upload
+* source:	https://sketchfab.com/3d-models/test-upload-304390021dce4c93a91e60a37753d829
+* author:	gogo1520180 (https://sketchfab.com/gogo1520180)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Test_Upload" (https://sketchfab.com/3d-models/test-upload-304390021dce4c93a91e60a37753d829) by gogo1520180 (https://sketchfab.com/gogo1520180) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

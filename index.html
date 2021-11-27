@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hot Mama</title>
+    <title>Merry Christmas</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
 
-    <link rel="manifest" href="site.webmanifest">
+
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
 
 </head>
 <style>
@@ -77,6 +78,9 @@
     <script>
 
  const { innerWidth, innerHeight } = window;
+ var particles = [];
+ var particleImage = new Image();
+particleImage.src = 'http://i.imgur.com/cTALZ.png'; 
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(innerWidth, innerHeight);
@@ -86,9 +90,9 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 document.body.appendChild(renderer.domElement);
 
 const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight);
-camera.position.z = 150;
-camera.position.x = 500;
-camera.position.y = 150;
+camera.position.z = 50;
+camera.position.x = 300;
+camera.position.y = 200;
 
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -103,7 +107,7 @@ scene.background = new THREE.Color( 0x0F8A5F );
 
         new THREE.GLTFLoader().load('scene.gltf', result => { 
           model = result.scene.children[0]; 
-          model.position.set(0,0,0);
+          model.position.set(0,-50,0);
           model.traverse(n => { if ( n.isMesh ) {
             n.castShadow = true; 
             n.receiveShadow = true;
@@ -131,7 +135,7 @@ scene.add(sphereLight);
 hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 1);
 scene.add(hemiLight);
 
-const ambiLight = new THREE.AmbientLight( 0x404040, 5.0 );
+// const ambiLight = new THREE.AmbientLight( 0x404040, 5.0 );
 //scene.add(ambiLight);
 
 light = new THREE.SpotLight(0xffa95c,4);
@@ -145,6 +149,111 @@ const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
 //scene.add( directionalLight );
 
 
+//snow, second try
+   var material = new THREE.ParticleBasicMaterial( { map: new THREE.Texture(particleImage) } );
+var TO_RADIANS = Math.PI / 180;
+
+Particle3D = function(material) {
+    THREE.Particle.call(this, material);
+
+    //this.material = material instanceof Array ? material : [ material ];
+    // define properties
+    this.velocity = new THREE.Vector3(0, -8, 0);
+    this.velocity.rotateX(randomRange(-45, 45));
+    this.velocity.rotateY(randomRange(0, 360));
+    this.gravity = new THREE.Vector3(0, 0, 0);
+    this.drag = 1;
+    // methods... 
+};
+
+Particle3D.prototype = new THREE.Particle();
+Particle3D.prototype.constructor = Particle3D;
+
+Particle3D.prototype.updatePhysics = function() {
+    this.velocity.multiplyScalar(this.drag);
+    this.velocity.addSelf(this.gravity);
+    this.position.addSelf(this.velocity);
+}
+
+THREE.Vector3.prototype.rotateY = function(angle) {
+    cosRY = Math.cos(angle * TO_RADIANS);
+    sinRY = Math.sin(angle * TO_RADIANS);
+
+    var tempz = this.z;;
+    var tempx = this.x;
+
+    this.x = (tempx * cosRY) + (tempz * sinRY);
+    this.z = (tempx * -sinRY) + (tempz * cosRY);
+}
+
+THREE.Vector3.prototype.rotateX = function(angle) {
+    cosRY = Math.cos(angle * TO_RADIANS);
+    sinRY = Math.sin(angle * TO_RADIANS);
+
+    var tempz = this.z;;
+    var tempy = this.y;
+
+    this.y = (tempy * cosRY) + (tempz * sinRY);
+    this.z = (tempy * -sinRY) + (tempz * cosRY);
+}
+
+THREE.Vector3.prototype.rotateZ = function(angle) {
+    cosRY = Math.cos(angle * TO_RADIANS);
+    sinRY = Math.sin(angle * TO_RADIANS);
+
+    var tempx = this.x;;
+    var tempy = this.y;
+
+    this.y = (tempy * cosRY) + (tempx * sinRY);
+    this.x = (tempy * -sinRY) + (tempx * cosRY);
+}
+
+// returns a random number between the two limits provided 
+
+function randomRange(min, max) {
+    return ((Math.random() * (max - min)) + min);
+}
+
+//end snow second try
+
+//Particles of snow?
+// const pointGeometry = new THREE.Geometry();
+//     for (let i = 0; i < particleNum; i++) {
+//         const x = Math.floor(Math.random() * maxRange - minRange);
+//         const y = Math.floor(Math.random() * maxRange - minRange);
+//         const z = Math.floor(Math.random() * maxRange - minRange);
+//         const particle = new THREE.Vector3(x, y, z);
+//         pointGeometry.vertices.push(particle);
+        // const color = new THREE.Color(0xffffff);
+        // pointGeometry.colors.push(color);
+    // }
+    
+    // const pointMaterial = new THREE.PointsMaterial({
+    //     size: 8,
+    //     color: 0xffffff,
+    //     vertexColors: false,
+    //     map: getTexture(),
+    //     // blending: THREE.AdditiveBlending,
+    //     transparent: true,
+    //     // opacity: 0.8,
+    //     fog: true,
+    //     depthWrite: false
+    // });
+
+    // const velocities = [];
+    // for (let i = 0; i < particleNum; i++) {
+    //     const x = Math.floor(Math.random() * 6 - 3) * 0.1;
+    //     const y = Math.floor(Math.random() * 10 + 3) * - 0.05;
+    //     const z = Math.floor(Math.random() * 6 - 3) * 0.1;
+    //     const particle = new THREE.Vector3(x, y, z);
+    //     velocities.push(particle);
+    // }
+
+    // particles = new THREE.Points(pointGeometry, pointMaterial);
+    // particles.geometry.velocities = velocities;
+    // scene.add(particles);
+//end snow particles
+
 
 const handleResize = () => {
   const { innerWidth, innerHeight } = window;
@@ -157,7 +266,19 @@ window.addEventListener('resize', handleResize);
 
 renderer.setAnimationLoop(time => {
 
+  for(var i = 0; i<particles.length; i++) {
 
+        var particle = particles[i]; 
+        particle.updatePhysics(); 
+
+        with(particle.position) {
+            if(y<-1000) y+=2000; 
+            if(x>1000) x-=2000; 
+            else if(x<-1000) x+=2000; 
+            if(z>1000) z-=2000; 
+            else if(z<-1000) z+=2000; 
+        }                
+    }
 
   controls.update();
 
