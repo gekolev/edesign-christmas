@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Merry Christmas</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas&display=swap" rel="stylesheet">
 
 
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -19,9 +20,11 @@
 
     html{ margin: 0;}
     body{ 
+      
       overflow: hidden;
       margin:0;
-      padding:0;}
+      padding:0;
+      font-family: 'Mountains of Christmas', cursive;}
     #info{
       opacity: 0.3;
       color:white;
@@ -29,16 +32,7 @@
       display: flex;
       flex-direction: column;
     }
-    #content{
-    margin-top: 3vw;
-    margin-left: 3vw;
-    }
-    a{
-      text-decoration: none;
-      color:white;
-    }
     #overlay {
-    font-family: 'Pangolin', cursive;
     color:white;
     font-size: 5vw;
     position: absolute;
@@ -51,36 +45,229 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: rgba(0,0,0,1);
+    background: repeating-linear-gradient(
+    45deg,
+    #5FA12E,
+    #E41824 10px,
+    #5FA12E 10px,
+    #2a4714 20px
+  );
 }
 
+/* input style */
+textarea{
+  max-width: 320px;
+  font-size: 32px;
+  font-family: 'Mountains of Christmas', cursive;
+  border-radius: 20px;
+  padding: 5px;
+  text-align: center;
+  background-color: white;
+}
+textarea::placeholder{
+  color: #E41824;
+}
+/* countdown */
+.countdown-inner{
+  background: #009DFF;
+  padding: 20px;
+  width: 100%;
+   margin-top: auto;
+}
+
+.countdown{
+  overflow: hidden;
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+h4{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+form{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.make-wish{
+  width: 100%;
+  height: 50px;
+}
+button{
+  position: relative;
+  background: #E41824;
+  border: 0;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 20px;
+  box-shadow: 
+    inset 0 0 0 1px #d11421, 
+    inset 0 0 0 2px rgba(255,255,255, .15),
+    0 8px 0 0 #d11421,
+    0 8px 0px 1px rgba(0,0,0,.5),
+    0 8px 8px 1px rgba(0,0,0,.5);
+}
+button:hover,
+button:focus{
+  outline: 0;
+  top: 2px;
+  background: #E41824;
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  box-shadow: 
+    inset 0 0 0 1px #d11421, 
+    inset 0 0 0 2px rgba(255,255,255, .15),
+    0 6px 0 0 #d11421,
+    0 6px 0px 1px rgba(0,0,0,.5),
+    0 6px 8px 1px rgba(0,0,0,.5);
+}
+button:active{
+  outline: 0;
+  top: 8px;
+  box-shadow: 
+    inset 0 0 0 1px #d11421, 
+    inset 0 0 0 2px rgba(255,255,255, .15),
+    0 1px 0 0 #d11421,
+    0 1px 0px 1px rgba(0,0,0,.5),
+    0 1px 8px 1px rgba(0,0,0,.5);
+}
+.m-top-10{
+  margin-top: 10px;
+}
+.latest-wish{
+  position:absolute;
+  bottom:0;
+  background-color: #FF5B46;
+  width: 100%;
+}
+.latest-wish-inner{
+   padding: 20px;
+}
+.wish-text{
+  margin-top:0;
+  margin-bottom:0;
+  font-weight: bold;
+  color: white;
+}
 </style>
+
 <body>
-    <audio autoplay>
+<script>
+        function activate() {
+        var audio = document.getElementById("audio");
+        audio.play();
+        document.getElementById("overlay").remove();
+        console.log("wild shit george, good job")
+      }
+</script>
+    <!-- <audio>
   <source src="song.mp3" type="audio/mpeg">
-    </audio>
-  <div id="overlay"> Think of chistmas! </div>
-<div id="info">
-  <div id="content">
-<h1>Put in content here.</h1>
+    </audio> -->
+<div class="countdown">
+  <div class="countdown-inner">
+    <div class="inner-inner">
+    <h4>Countdown until Christmas Day. :)</h4>
+    <span id="days"></span>
+    <span id="hours"></span>
+    <span id="minutes"></span>
+    <span id="seconds"></span>
+     </div>
   </div>
+</div>
+
+  <div class="latest-wish">
+    <div class="latest-wish-inner">
+    <p class="wish-text">
+      Previous wish :)
+    </p>
+    <p class="wish-text"> LAMBO </p>
+     </div>
+  </div>
+
+  <div id="overlay"> 
+    <div class="msg-holder">
+      <div class="msg">
+        <form>
+          <textarea type="text" placeholder="Write Christmas Wish!"></textarea>
+          <button class="make-wish m-top-10" onclick="activate()">Please Santa</button>
+          <audio id="audio" src="song.mp3" type="audio/mpeg">  <source src="song.mp3" type="audio/mpeg"></audio> 
+        </form>
+      </div>
+    </div>
+  </div>
+<div id="info">
 </div>
             <script src="https://unpkg.com/three@0.125.2/build/three.js"></script>
             <script src="https://unpkg.com/three@0.125.2/examples/js/controls/OrbitControls.js"></script>
-            <script src="https://unpkg.com/three@0.125.2/examples/js/loaders/DRACOLoader.js"></script>
             <script src="https://unpkg.com/three@0.125.2/examples/js/loaders/GLTFLoader.js"></script>
-  <script>
-  setTimeout(function() {
-    document.getElementById("overlay").remove();
-  }, 5000);
+
+<script>
+  function calculateChristmasCountdown(){
+    
+    //Get today's date.
+    var now = new Date();
+
+    //Get the current month. Add a +1 because
+    //getMonth starts at 0 for January.
+    var currentMonth = (now.getMonth() + 1);
+
+    //Get the current day of the month.
+    var currentDay = now.getDate();
+
+    //Work out the year that the next Christmas
+    //day will occur on.
+    var nextChristmasYear = now.getFullYear();
+    if(currentMonth == 12 && currentDay > 25){
+        //This year's Christmas Day has already passed.
+        nextChristmasYear = nextChristmasYear + 1;
+    }
+
+    var nextChristmasDate = nextChristmasYear + '-12-25T00:00:00.000Z';
+    var christmasDay = new Date(nextChristmasDate);
+
+    //Get the difference in seconds between the two days.
+    var diffSeconds = Math.floor((christmasDay.getTime() - now.getTime()) / 1000);
+
+    var days = 0;
+    var hours = 0;
+    var minutes = 0;
+    var seconds = 0;
+
+    //Don't calculate the time left if it is Christmas day.
+    if(currentMonth != 12 || (currentMonth == 12 && currentDay != 25)){
+        //Convert these seconds into days, hours, minutes, seconds.
+        days = Math.floor(diffSeconds / (3600*24));
+        diffSeconds  -= days * 3600 * 24;
+        hours   = Math.floor(diffSeconds / 3600);
+        diffSeconds  -= hours * 3600;
+        minutes = Math.floor(diffSeconds / 60);
+        diffSeconds  -= minutes * 60;
+        seconds = diffSeconds;
+    }
+
+    //Add our counts to their corresponding HTML elements.
+    document.getElementById('days').innerHTML = days + ' Days';
+    document.getElementById('hours').innerHTML = hours + ' Hours';
+    document.getElementById('minutes').innerHTML = minutes + ' Minutes';
+    document.getElementById('seconds').innerHTML = seconds + ' Seconds';
+
+    //Recursive call after 1 second using setTimeout
+    setTimeout(calculateChristmasCountdown, 1000);
+}
+
+calculateChristmasCountdown();
 </script>
 
-    <script>
+<script>
 
- const { innerWidth, innerHeight } = window;
- var particles = [];
- var particleImage = new Image();
-particleImage.src = 'http://i.imgur.com/cTALZ.png'; 
+const { innerWidth, innerHeight } = window;
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(innerWidth, innerHeight);
@@ -135,7 +322,7 @@ scene.add(sphereLight);
 hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 1);
 scene.add(hemiLight);
 
-// const ambiLight = new THREE.AmbientLight( 0x404040, 5.0 );
+const ambiLight = new THREE.AmbientLight( 0x404040, 5.0 );
 //scene.add(ambiLight);
 
 light = new THREE.SpotLight(0xffa95c,4);
@@ -149,111 +336,13 @@ const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
 //scene.add( directionalLight );
 
 
-//snow, second try
-   var material = new THREE.ParticleBasicMaterial( { map: new THREE.Texture(particleImage) } );
-var TO_RADIANS = Math.PI / 180;
 
-Particle3D = function(material) {
-    THREE.Particle.call(this, material);
-
-    //this.material = material instanceof Array ? material : [ material ];
-    // define properties
-    this.velocity = new THREE.Vector3(0, -8, 0);
-    this.velocity.rotateX(randomRange(-45, 45));
-    this.velocity.rotateY(randomRange(0, 360));
-    this.gravity = new THREE.Vector3(0, 0, 0);
-    this.drag = 1;
-    // methods... 
-};
-
-Particle3D.prototype = new THREE.Particle();
-Particle3D.prototype.constructor = Particle3D;
-
-Particle3D.prototype.updatePhysics = function() {
-    this.velocity.multiplyScalar(this.drag);
-    this.velocity.addSelf(this.gravity);
-    this.position.addSelf(this.velocity);
-}
-
-THREE.Vector3.prototype.rotateY = function(angle) {
-    cosRY = Math.cos(angle * TO_RADIANS);
-    sinRY = Math.sin(angle * TO_RADIANS);
-
-    var tempz = this.z;;
-    var tempx = this.x;
-
-    this.x = (tempx * cosRY) + (tempz * sinRY);
-    this.z = (tempx * -sinRY) + (tempz * cosRY);
-}
-
-THREE.Vector3.prototype.rotateX = function(angle) {
-    cosRY = Math.cos(angle * TO_RADIANS);
-    sinRY = Math.sin(angle * TO_RADIANS);
-
-    var tempz = this.z;;
-    var tempy = this.y;
-
-    this.y = (tempy * cosRY) + (tempz * sinRY);
-    this.z = (tempy * -sinRY) + (tempz * cosRY);
-}
-
-THREE.Vector3.prototype.rotateZ = function(angle) {
-    cosRY = Math.cos(angle * TO_RADIANS);
-    sinRY = Math.sin(angle * TO_RADIANS);
-
-    var tempx = this.x;;
-    var tempy = this.y;
-
-    this.y = (tempy * cosRY) + (tempx * sinRY);
-    this.x = (tempy * -sinRY) + (tempx * cosRY);
-}
 
 // returns a random number between the two limits provided 
 
 function randomRange(min, max) {
     return ((Math.random() * (max - min)) + min);
 }
-
-//end snow second try
-
-//Particles of snow?
-// const pointGeometry = new THREE.Geometry();
-//     for (let i = 0; i < particleNum; i++) {
-//         const x = Math.floor(Math.random() * maxRange - minRange);
-//         const y = Math.floor(Math.random() * maxRange - minRange);
-//         const z = Math.floor(Math.random() * maxRange - minRange);
-//         const particle = new THREE.Vector3(x, y, z);
-//         pointGeometry.vertices.push(particle);
-        // const color = new THREE.Color(0xffffff);
-        // pointGeometry.colors.push(color);
-    // }
-    
-    // const pointMaterial = new THREE.PointsMaterial({
-    //     size: 8,
-    //     color: 0xffffff,
-    //     vertexColors: false,
-    //     map: getTexture(),
-    //     // blending: THREE.AdditiveBlending,
-    //     transparent: true,
-    //     // opacity: 0.8,
-    //     fog: true,
-    //     depthWrite: false
-    // });
-
-    // const velocities = [];
-    // for (let i = 0; i < particleNum; i++) {
-    //     const x = Math.floor(Math.random() * 6 - 3) * 0.1;
-    //     const y = Math.floor(Math.random() * 10 + 3) * - 0.05;
-    //     const z = Math.floor(Math.random() * 6 - 3) * 0.1;
-    //     const particle = new THREE.Vector3(x, y, z);
-    //     velocities.push(particle);
-    // }
-
-    // particles = new THREE.Points(pointGeometry, pointMaterial);
-    // particles.geometry.velocities = velocities;
-    // scene.add(particles);
-//end snow particles
-
 
 const handleResize = () => {
   const { innerWidth, innerHeight } = window;
@@ -266,99 +355,10 @@ window.addEventListener('resize', handleResize);
 
 renderer.setAnimationLoop(time => {
 
-  for(var i = 0; i<particles.length; i++) {
-
-        var particle = particles[i]; 
-        particle.updatePhysics(); 
-
-        with(particle.position) {
-            if(y<-1000) y+=2000; 
-            if(x>1000) x-=2000; 
-            else if(x<-1000) x+=2000; 
-            if(z>1000) z-=2000; 
-            else if(z<-1000) z+=2000; 
-        }                
-    }
-
   controls.update();
 
   renderer.render(scene, camera);
 });
-
-//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-
-
-      // let scene, camera, renderer, controls, light, model;
-
-      // function init() {
-
-      //   scene = new THREE.Scene();
-      //   scene.background = new THREE.Color(0xdddddd);
-      //  /* scene.background = new THREE.CubeTextureLoader()
-      //     .setPath( 'skybox/' )
-      //     .load( [
-      //       'posx.jpg',
-      //       'negx.jpg',
-      //       'posy.jpg',
-      //       'negy.jpg',
-      //       'posz.jpg',
-      //       'negz.jpg'
-      //     ] );*/
-
-
-
-      //   camera = new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,1,5000);
-      //   camera.position.set(0,25,25);
-
-      //   const controls = new THREE.OrbitControls(camera, renderer.domElement);
-      //   controls.enableDamping = true;
-      //   controls.autoRotate = true;
-
-      //  // scene.add( new THREE.AxesHelper(500));
-
-      //   light = new THREE.SpotLight(0xffa95c,4);
-      //   light.position.set(-50,50,50);
-      //   light.castShadow = true;
-      //   light.shadow.bias = -0.0001;
-      //   light.shadow.mapSize.width = 1024*4;
-      //   light.shadow.mapSize.height = 1024*4;
-      //   scene.add( light );
-
-      //   hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 4);
-      //   scene.add(hemiLight);
-
-      //   renderer = new THREE.WebGLRenderer();
-      //   renderer.toneMapping = THREE.ReinhardToneMapping;
-      //   renderer.toneMappingExposure = 2.3;
-      //   renderer.setSize(window.innerWidth,window.innerHeight);
-      //   renderer.shadowMap.enabled = true;
-      //   document.body.appendChild(renderer.domElement);
-        
-
-        
-      //   new THREE.GLTFLoader().load('scene.gltf', result => { 
-      //     model = result.scene.children[0]; 
-      //     model.position.set(0,-5,-25);
-      //     model.traverse(n => { if ( n.isMesh ) {
-      //       n.castShadow = true; 
-      //       n.receiveShadow = true;
-      //       if(n.material.map) n.material.map.anisotropy = 1; 
-      //     }});
-      //     scene.add(model);
-
-      //     animate();
-      //   });
-      // }
-      // function animate() {
-      //   renderer.render(scene,camera);
-      //   light.position.set( 
-      //     camera.position.x + 10,
-      //     camera.position.y + 10,
-      //     camera.position.z + 10,
-      //   );
-      //   requestAnimationFrame(animate);
-      // }
-      // init();
 
  
     </script>
