@@ -180,7 +180,7 @@ button:active{
     <p class="wish-text">
       Latest wish:
     </p>
-    <p id="wish" class="wish-text"> LAMBO </p>
+    <p id="lambo" class="wish-text"></p>
      </div>
   </div>
 
@@ -197,15 +197,7 @@ button:active{
   </div>
 <div id="info">
 </div>
-<script>
-        function activate() {
-        var audio = document.getElementById("audio");
-        audio.play();
-        const val = document.querySelector('input').value;
-        console.log(val);
-        document.getElementById("overlay").remove();
-      }
-</script>
+
 
 <script src="https://unpkg.com/three@0.125.2/build/three.js"></script>
 <script src="https://unpkg.com/three@0.125.2/examples/js/controls/OrbitControls.js"></script>
@@ -215,7 +207,6 @@ button:active{
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-analytics.js";
-  import { getDatabase } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js"
   
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -237,17 +228,53 @@ button:active{
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-
-  //firebase shit
-
   console.log(app);
-
-  // const autoId = rootRef.push().key
-  // rootRef.child(autoId).set({
-  //   wish: wish
-  // })
 </script>
 
+<script>
+          function createWish(message) {
+                let now = Date.now();
+                let timestamp = now;
+                // POST request to the database
+                fetch(`https://edesign-christmas-default-rtdb.europe-west1.firebasedatabase.app/wishes.json`, {
+                    method: "POST",
+                    headers: {'Content-type': 'application/json'},
+                    body: JSON.stringify({
+                        message: message,
+                        timestamp: timestamp,
+                    })
+                })
+}     
+ function getPrevious (){
+                        fetch(`https://edesign-christmas-default-rtdb.europe-west1.firebasedatabase.app/wishes.json?orderBy="timestamp"`, {
+                    method: "GET",
+                })
+                .then(response => response.json())
+  .then(data => {console.log(data)
+    var result = Object.keys(data).map((key) => [key, data[key]]);
+    var lastIndex = result.length - 1;
+    var lastElement = result[lastIndex];
+    var lambo = document.getElementById("lambo");
+    var message = lastElement[1].message;
+    lambo.innerHTML = message;
+  });
+      }
+
+function activate() {
+var audio = document.getElementById("audio");
+audio.play();
+const val = document.querySelector('input').value;
+document.getElementById("overlay").remove();
+if (val=="") {
+}else{
+  createWish(val);
+}
+getPrevious();
+}
+
+
+
+</script>
 
 
 <script>
