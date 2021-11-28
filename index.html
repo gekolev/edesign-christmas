@@ -55,7 +55,7 @@
 }
 
 /* input style */
-textarea{
+input{
   max-width: 320px;
   font-size: 32px;
   font-family: 'Mountains of Christmas', cursive;
@@ -64,7 +64,7 @@ textarea{
   text-align: center;
   background-color: white;
 }
-textarea::placeholder{
+input::placeholder{
   color: #E41824;
 }
 /* countdown */
@@ -159,14 +159,7 @@ button:active{
 </style>
 
 <body>
-<script>
-        function activate() {
-        var audio = document.getElementById("audio");
-        audio.play();
-        document.getElementById("overlay").remove();
-        console.log("wild shit george, good job")
-      }
-</script>
+
     <!-- <audio>
   <source src="song.mp3" type="audio/mpeg">
     </audio> -->
@@ -185,9 +178,9 @@ button:active{
   <div class="latest-wish">
     <div class="latest-wish-inner">
     <p class="wish-text">
-      Previous wish :)
+      Latest wish:
     </p>
-    <p class="wish-text"> LAMBO </p>
+    <p id="wish" class="wish-text"> LAMBO </p>
      </div>
   </div>
 
@@ -195,7 +188,7 @@ button:active{
     <div class="msg-holder">
       <div class="msg">
         <form>
-          <textarea type="text" placeholder="Write Christmas Wish!"></textarea>
+          <input name="wish" id="wish" type="text" placeholder="Write Christmas Wish!"/>
           <button class="make-wish m-top-10" onclick="activate()">Please Santa</button>
           <audio id="audio" src="song.mp3" type="audio/mpeg">  <source src="song.mp3" type="audio/mpeg"></audio> 
         </form>
@@ -204,9 +197,58 @@ button:active{
   </div>
 <div id="info">
 </div>
-            <script src="https://unpkg.com/three@0.125.2/build/three.js"></script>
-            <script src="https://unpkg.com/three@0.125.2/examples/js/controls/OrbitControls.js"></script>
-            <script src="https://unpkg.com/three@0.125.2/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+        function activate() {
+        var audio = document.getElementById("audio");
+        audio.play();
+        const val = document.querySelector('input').value;
+        console.log(val);
+        document.getElementById("overlay").remove();
+      }
+</script>
+
+<script src="https://unpkg.com/three@0.125.2/build/three.js"></script>
+<script src="https://unpkg.com/three@0.125.2/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/three@0.125.2/examples/js/loaders/GLTFLoader.js"></script>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-analytics.js";
+  import { getDatabase } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js"
+  
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // import { } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-realtime-database.js'
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyC-rCad0tHYXzJzR90iVXRSH5FtaKeLnEk",
+    authDomain: "edesign-christmas.firebaseapp.com",
+    projectId: "edesign-christmas",
+    storageBucket: "edesign-christmas.appspot.com",
+    messagingSenderId: "817809065184",
+    appId: "1:817809065184:web:24f6999d6c842c4b39fc85",
+    measurementId: "G-ZCE16WT3PF"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+  //firebase shit
+
+  console.log(app);
+
+  // const autoId = rootRef.push().key
+  // rootRef.child(autoId).set({
+  //   wish: wish
+  // })
+</script>
+
+
 
 <script>
   function calculateChristmasCountdown(){
